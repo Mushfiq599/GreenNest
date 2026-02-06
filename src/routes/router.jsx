@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import MainLayout from "../components/MainLayout";
+
 import Home from "../pages/Home";
 import Categories from "../pages/Categories";
 import Plants from "../pages/Plants";
@@ -6,9 +8,7 @@ import PlantDetails from "../pages/PlantDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
-import MainLayout from "../components/MainLayout";
 import PrivateRoute from "./PrivateRoute";
-
 
 export const router = createBrowserRouter([
   {
@@ -16,9 +16,30 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
+      // ✅ ONLY public page
       { index: true, element: <Home /> },
-      { path: "categories", element: <Categories /> },
-      { path: "category/:id", element: <Plants /> },
+
+      // ✅ auth pages stay public
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+
+      // ✅ everything else private
+      {
+        path: "categories",
+        element: (
+          <PrivateRoute>
+            <Categories />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "category/:id",
+        element: (
+          <PrivateRoute>
+            <Plants />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "plant/:id",
         element: (
@@ -27,8 +48,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      { path: "login", element: <Login /> },
-      { path: "register", element: <Register /> },
+
+      // optional: also handle * inside children
+      // { path: "*", element: <ErrorPage /> },
     ],
   },
 ]);

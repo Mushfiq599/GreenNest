@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import { categories } from "../data/categories";
 import { plants } from "../data/plants";
 import { BiSolidCategory } from "react-icons/bi";
-import { PiPottedPlant } from "react-icons/pi";
-import { FaSearch } from "react-icons/fa";
+import { PiPottedPlant, PiSunLight } from "react-icons/pi";
+import { FaRegStar, FaSearch, FaStar, FaSun } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
 import { BsDatabaseLock } from "react-icons/bs";
+import { IoIosWater } from "react-icons/io";
 
 export default function Home() {
     const [query, setQuery] = useState("");
-
+    const { user } = useAuth();
     const filteredPlants = useMemo(() => {
         const q = query.trim().toLowerCase();
         if (!q) return plants;
@@ -22,7 +24,7 @@ export default function Home() {
     return (
         <div className="w-full">
             {/* HERO */}
-            <section className="bg-green-50 border-b">
+            <section className="bg-green-50 ">
                 <div className="max-w-6xl mx-auto px-4 py-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                         <div>
@@ -37,27 +39,6 @@ export default function Home() {
                                 Explore plant categories, discover the perfect indoor plant, and
                                 learn easy care tips. Sign in to view full plant details.
                             </p>
-
-                            {/* Search */}
-                            <div className="mt-6">
-                                <label className="input input-bordered flex items-center gap-2 w-full max-w-md">
-                                    <span className="text-gray-400"><FaSearch /></span>
-                                    <input
-                                        type="text"
-                                        className="grow"
-                                        placeholder="Search plants (e.g., Snake Plant)"
-                                        value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                    />
-                                </label>
-
-                                {query && (
-                                    <p className="text-sm text-gray-700 mt-2">
-                                        Showing results for: <span className="font-medium">{query}</span>
-                                    </p>
-                                )}
-                            </div>
-
                             {/* CTA buttons */}
                             <div className="mt-6 flex flex-col sm:flex-row gap-3">
                                 <Link
@@ -66,20 +47,23 @@ export default function Home() {
                                 >
                                     Browse Categories
                                 </Link>
-                                <Link to="/login" className="btn btn-outline">
-                                    Login to View Details
-                                </Link>
+                                {!user && (
+                                    <Link to="/login" className="btn btn-outline">
+                                        Login to View Details
+                                    </Link>
+                                )}
+
                             </div>
 
                             {/* Quick stats */}
                             <div className="mt-8 flex flex-wrap gap-3">
-                                <div className="badge badge-outline py-3 px-4">
+                                <div className="badge badge-outline py-3 px-4 font-bold">
                                     <BiSolidCategory /> {categories.length} Categories
                                 </div>
-                                <div className="badge badge-outline py-3 px-4">
-                                    <PiPottedPlant /> {plants.length} Plants
+                                <div className="badge badge-outline py-3 px-4 font-bold">
+                                    <PiPottedPlant className="text-green-800" /> {plants.length} Plants
                                 </div>
-                                <div className="badge badge-outline py-3 px-4">
+                                <div className="badge badge-outline py-3 px-4 font-bold">
                                     <BsDatabaseLock /> Private Details Page
                                 </div>
                             </div>
@@ -112,47 +96,49 @@ export default function Home() {
             </section>
 
             {/* FEATURED CATEGORIES */}
-            <section className="max-w-6xl mx-auto px-4 py-12">
-                <div className="flex items-end justify-between gap-4">
-                    <div>
-                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                            Featured Categories
-                        </h2>
-                        <p className="text-gray-600 mt-1">
-                            Choose a category to browse plants tailored to your space.
-                        </p>
-                    </div>
-                    <Link to="/categories" className="btn btn-outline btn-sm">
-                        View All
-                    </Link>
-                </div>
-
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {featuredCategories.map((c) => (
-                        <Link
-                            key={c.id}
-                            to={`/category/${c.id}`}
-                            className="card bg-base-100 shadow hover:shadow-md transition"
-                        >
-                            <figure className="h-40">
-                                <img
-                                    src={c.image}
-                                    alt={c.name}
-                                    className="w-full h-full object-cover"
-                                />
-                            </figure>
-                            <div className="card-body">
-                                <h3 className="card-title">{c.name}</h3>
-                                <p className="text-sm text-gray-600">{c.description}</p>
-                                <div className="card-actions justify-end">
-                                    <span className="btn btn-sm bg-green-600 hover:bg-green-700 text-white border-none">
-                                        Browse
-                                    </span>
-                                </div>
-                            </div>
+            <section className="bg-green-50">
+                <section className="max-w-6xl mx-auto px-4 py-12">
+                    <div className="flex items-end justify-between gap-4">
+                        <div>
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                                Featured Categories
+                            </h2>
+                            <p className="text-gray-600 mt-1">
+                                Choose a category to browse plants tailored to your space.
+                            </p>
+                        </div>
+                        <Link to="/categories" className="btn btn-outline btn-sm">
+                            View All
                         </Link>
-                    ))}
-                </div>
+                    </div>
+
+                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {featuredCategories.map((c) => (
+                            <Link
+                                key={c.id}
+                                to={`/category/${c.id}`}
+                                className="card bg-base-100 shadow hover:shadow-md transition"
+                            >
+                                <figure className="h-40">
+                                    <img
+                                        src={c.image}
+                                        alt={c.name}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </figure>
+                                <div className="card-body">
+                                    <h3 className="card-title">{c.name}</h3>
+                                    <p className="text-sm text-gray-600">{c.description}</p>
+                                    <div className="card-actions justify-end">
+                                        <span className="btn btn-sm bg-green-600 hover:bg-green-700 text-white border-none">
+                                            Browse
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
             </section>
 
             {/* TOP PLANTS */}
@@ -164,14 +150,13 @@ export default function Home() {
                                 Popular Plants
                             </h2>
                             <p className="text-gray-600 mt-1">
-                                Click any plant to view details (requires login).
+                                Click any plant to view details.
                             </p>
                         </div>
                         <Link to="/categories" className="btn btn-outline btn-sm">
                             Browse More
                         </Link>
                     </div>
-
                     {query && filteredPlants.length === 0 ? (
                         <div className="mt-10 text-center">
                             <h3 className="text-xl font-bold text-gray-900">No plants found</h3>
@@ -198,9 +183,9 @@ export default function Home() {
                                         <h3 className="card-title">{p.name}</h3>
 
                                         <div className="flex flex-wrap gap-2 text-sm text-gray-600">
-                                            <span className="badge badge-outline">⭐ {p.rating}</span>
-                                            <span className="badge badge-outline">💧 {p.water}</span>
-                                            <span className="badge badge-outline">☀ {p.light}</span>
+                                            <span className="badge badge-outline"><FaStar className="text-yellow-500" /> {p.rating}</span>
+                                            <span className="badge badge-outline"><IoIosWater className="text-blue-600" /> {p.water}</span>
+                                            <span className="badge badge-outline"><FaSun className="text-yellow-500" /> {p.light}</span>
                                             <span className="badge badge-outline">
                                                 Care: {p.careLevel}
                                             </span>
@@ -210,7 +195,7 @@ export default function Home() {
                                             <span className="font-semibold text-green-700">
                                                 ${p.price}
                                             </span>
-                                            <span className="btn btn-sm btn-outline">
+                                            <span className="btn btn-sm bg-green-600 hover:bg-green-700 text-white btn-outline">
                                                 Details
                                             </span>
                                         </div>
@@ -241,7 +226,7 @@ export default function Home() {
                                 Bring nature indoors — explore categories, learn care tips, and find your
                                 perfect plant for every corner.
                             </p>
-                            
+
                         </div>
                     </div>
                 </div>

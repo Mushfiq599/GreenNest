@@ -2,13 +2,13 @@ export const categories = [
   {
     id: "low-light",
     name: "Low Light",
-    image: "https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=900&auto=format&fit=crop&q=60",
+    image: "https://glasswingshop.com/cdn/shop/products/8D2A2067.jpg?v=1595400475&width=533",
     description: "Plants that thrive in low to medium indoor light.",
   },
   {
     id: "air-purifying",
     name: "Air Purifying",
-    image: "https://images.unsplash.com/photo-1524594157360-2731dce27e6b?w=900&auto=format&fit=crop&q=60",
+    image: "https://sargentsgardens.com/wp-content/uploads/2024/12/Photo-Dec-17-2024-10-00-28-AM-scaled.jpg",
     description: "Improve indoor air quality with these green heroes.",
   },
   {
@@ -20,13 +20,13 @@ export const categories = [
   {
     id: "succulents",
     name: "Succulents & Cacti",
-    image: "https://images.unsplash.com/photo-1459666644539-a9755287d6b0?w=900&auto=format&fit=crop&q=60",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8fZX0Qxu8iI9PFTTV6zQ3IdmKbSjSqaLKsT1D_ysWkxbzokM4IxIAGbGRHamGjrT4RjRLp2jxHTeO099w_nFe1P2NwZZT74FEE1B2Hqo&s=10",
     description: "Low-water beauties with high style.",
   },
   {
     id: "hanging",
     name: "Hanging Plants",
-    image: "https://images.unsplash.com/photo-1523413457906-7f77bcb33ffb?w=900&auto=format&fit=crop&q=60",
+    image: "https://unlimitedgreens.com/cdn/shop/articles/download_1.jpg?v=1713332510&width=800",
     description: "Perfect plants for shelves, hooks, and baskets.",
   },
   {

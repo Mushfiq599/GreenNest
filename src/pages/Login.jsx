@@ -11,7 +11,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   // where to go after login
-  const from = location.state?.from || "/";
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
