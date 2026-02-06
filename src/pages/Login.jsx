@@ -9,8 +9,6 @@ export default function Login() {
 
   const location = useLocation();
   const navigate = useNavigate();
-
-  // where to go after login
   const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {

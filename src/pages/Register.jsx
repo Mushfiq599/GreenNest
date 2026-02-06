@@ -39,7 +39,7 @@ export default function Register() {
     setError("");
     setLoading(true);
     try {
-      await googleSignIn(); // Google already provides name + photo
+      await googleSignIn();
       navigate("/", { replace: true });
     } catch (err) {
       setError(err.message);

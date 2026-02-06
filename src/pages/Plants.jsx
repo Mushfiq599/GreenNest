@@ -1,12 +1,17 @@
 import { Link, useParams } from "react-router-dom";
 import { categories } from "../data/categories";
 import { plants } from "../data/plants";
+import { FaStar } from "react-icons/fa";
 
 export default function Plants() {
     const { id } = useParams();
 
     const category = categories.find((c) => c.id === id);
-    const list = plants.filter((p) => p.categoryId === id);
+
+    // category.name might be "Low Light" and plants.category is also "Low Light"
+    const list = category
+        ? plants.filter((p) => p.category === category.name)
+        : [];
 
     if (!category) {
         return (
@@ -40,26 +45,50 @@ export default function Plants() {
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {list.map((p) => (
                         <Link
-                            key={p.id}
-                            to={`/plant/${p.id}`}
+                            key={p.plantId}
+                            to={`/plant/${p.plantId}`}
                             state={{ fromCategory: `/category/${id}` }}
                             className="card bg-base-100 shadow hover:shadow-md transition"
                         >
                             <figure className="h-44">
-                                <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                                <img
+                                    src={p.image}
+                                    alt={p.plantName}
+                                    className="w-full h-full object-cover"
+                                />
                             </figure>
+
                             <div className="card-body">
-                                <h2 className="card-title">{p.name}</h2>
-                                <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-                                    <span>⭐ {p.rating}</span>
-                                    <span>💧 {p.water}</span>
-                                    <span>☀ {p.light}</span>
+                                <h2 className="card-title">{p.plantName}</h2>
+
+                                <div className="flex flex-wrap gap-3 text-sm text-gray-600 items-center">
+                                    <span className="inline-flex items-center gap-1">
+                                        <FaStar className="text-yellow-500" />
+                                        {p.rating}
+                                    </span>
+                                    <span className="badge badge-outline">
+                                        Care: {p.careLevel}
+                                    </span>
+                                    <span className="badge badge-outline">
+                                        Stock: {p.availableStock}
+                                    </span>
                                 </div>
-                                <div className="mt-2 flex items-center justify-between">
-                                    <span className="font-semibold text-green-700">${p.price}</span>
+
+                                <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+                                    {p.description}
+                                </p>
+
+                                <div className="mt-3 flex items-center justify-between">
+                                    <span className="font-semibold text-green-700">
+                                        ${p.price}
+                                    </span>
                                     <span className="btn btn-sm bg-green-600 hover:bg-green-700 text-white border-none">
                                         Details
                                     </span>
+                                </div>
+
+                                <div className="mt-2 text-xs text-gray-500">
+                                    Provided by: <span className="font-medium">{p.providerName}</span>
                                 </div>
                             </div>
                         </Link>

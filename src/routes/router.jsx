@@ -16,14 +16,11 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
-      // ✅ ONLY public page
       { index: true, element: <Home /> },
 
-      // ✅ auth pages stay public
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
 
-      // ✅ everything else private
       {
         path: "categories",
         element: (
@@ -48,9 +45,6 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-
-      // optional: also handle * inside children
-      // { path: "*", element: <ErrorPage /> },
     ],
   },
 ]);

@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-// Paste your firebaseConfig here:
 const firebaseConfig = {
   apiKey: "AIzaSyBQktWtgM1k_QDfmk9mI76M_mZp5ATwiL4",
   authDomain: "greennest-bf8f3.firebaseapp.com",

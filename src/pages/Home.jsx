@@ -8,8 +8,21 @@ import { FaRegStar, FaSearch, FaStar, FaSun } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { BsDatabaseLock } from "react-icons/bs";
 import { IoIosWater } from "react-icons/io";
+import { useEffect } from "react";
+
 
 export default function Home() {
+    const [experts, setExperts] = useState([]);
+    const [expertsLoading, setExpertsLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("/experts.json")
+            .then((res) => res.json())
+            .then((data) => setExperts(data))
+            .catch((err) => console.error("Experts fetch error:", err))
+            .finally(() => setExpertsLoading(false));
+    }, []);
+
     const [query, setQuery] = useState("");
     const { user } = useAuth();
     const filteredPlants = useMemo(() => {
@@ -206,6 +219,50 @@ export default function Home() {
                     )}
                 </div>
             </section>
+
+            <section className="max-w-6xl mx-auto px-4 py-12">
+                <div className="text-center max-w-2xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                        Meet Our Green Experts
+                    </h2>
+                    <p className="mt-2 text-gray-600">
+                        Our plant care specialists help you choose, grow, and keep your indoor plants thriving.
+                    </p>
+                </div>
+
+                {expertsLoading ? (
+                    <div className="mt-10 flex justify-center">
+                        <span className="loading loading-spinner loading-lg text-success"></span>
+                    </div>
+                ) : (
+                    <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {experts.map((expert) => (
+                            <div
+                                key={expert.id}
+                                className="card bg-base-100 shadow hover:shadow-md transition"
+                            >
+                                <figure className="pt-6">
+                                    <div className="avatar">
+                                        <div className="w-24 rounded-full ring ring-green-600 ring-offset-base-100 ring-offset-2">
+                                            <img src={expert.image} alt={expert.name} />
+                                        </div>
+                                    </div>
+                                </figure>
+
+                                <div className="card-body text-center">
+                                    <h3 className="font-bold text-gray-900 text-lg">{expert.name}</h3>
+                                    <p className="text-sm text-gray-600">{expert.specialization}</p>
+                                    <div className="mt-3">
+                                        <span className="badge badge-outline">Verified Expert</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
+
+
             <section >
                 <div className="relative w-full h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden ">
                     {/* Background image */}

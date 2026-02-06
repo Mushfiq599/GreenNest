@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Ayesha Rahman",
+        "specialization": "Indoor Plant Specialist",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbG5QITyKJnmpbUAAWQyJSKFCL81coJs-tuA&s"
+    },
+    {
+        "id": 2,
+        "name": "Shakib Hasan",
+        "specialization": "Soil & Fertilizer Expert",
+        "image": "https://www.profilebakery.com/wp-content/uploads/2024/05/before-and-after-examples-4.jpeg"
+    },
+    {
+        "id": 3,
+        "name": "Nusrat Jahan",
+        "specialization": "Pest Control & Recovery",
+        "image": "https://www.profilebakery.com/wp-content/uploads/2025/05/Profile-Picture-before-796x1024.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Imran Hossain",
+        "specialization": "Propagation & Growth Coach",
+        "image": "https://media.licdn.com/dms/image/v2/D5603AQHsww7cdHHxEg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715407905077?e=2147483647&v=beta&t=jYkKRI66PKaIaPIZ9E_lbZEDNfEaATDviiPsihN2peE"
+    }
+]

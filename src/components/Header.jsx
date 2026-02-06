@@ -26,7 +26,6 @@ export default function Header() {
   return (
     <header className="bg-green-50">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2" onClick={closeMenu}>
           <div className="w-9 h-9 rounded-full text-white flex items-center justify-center font-bold">
             <img src="/public/logo.png" alt="" />
@@ -35,8 +34,6 @@ export default function Header() {
             GreenNest
           </span>
         </Link>
-
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-2">
           <NavLink to="/" end className={navClass}>
             Home
@@ -44,8 +41,6 @@ export default function Header() {
           <NavLink to="/categories" className={navClass}>
             Categories
           </NavLink>
-
-          {/* optional quick test link */}
           <NavLink to="/plant/1" className={navClass}>
             Plant Details
           </NavLink>
@@ -68,8 +63,6 @@ export default function Header() {
             </button>
           )}
         </nav>
-
-        {/* Desktop Profile */}
         {user && (
           <div className="hidden md:flex items-center gap-2">
             <div className="text-sm text-gray-700 font-medium">
@@ -88,8 +81,6 @@ export default function Header() {
             </div>
           </div>
         )}
-
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden btn btn-sm btn-ghost"
           onClick={() => setOpen((v) => !v)}
@@ -98,8 +89,6 @@ export default function Header() {
           {open ? <FiX size={22} /> : <FiMenu size={22} />}
         </button>
       </div>
-
-      {/* Mobile Dropdown */}
       {open && (
         <div className="md:hidden border-t bg-white">
           <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
