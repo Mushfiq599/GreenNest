@@ -7,6 +7,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
 import MainLayout from "../components/MainLayout";
+import PrivateRoute from "./PrivateRoute";
+
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +19,14 @@ export const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "categories", element: <Categories /> },
       { path: "category/:id", element: <Plants /> },
-      { path: "plant/:id", element: <PlantDetails /> },
+      {
+        path: "plant/:id",
+        element: (
+          <PrivateRoute>
+            <PlantDetails />
+          </PrivateRoute>
+        ),
+      },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
     ],
