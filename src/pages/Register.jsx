@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 export default function Register() {
-  const { createUser, googleSignIn } = useAuth();
+  const { createUser, googleSignIn, updateUserProfile } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -14,7 +14,9 @@ export default function Register() {
     setError("");
     setLoading(true);
 
-    const email = e.target.email.value;
+    const name = e.target.name.value.trim();
+    const photo = e.target.photo.value.trim();
+    const email = e.target.email.value.trim();
     const password = e.target.password.value;
 
     if (password.length < 6) {
@@ -24,6 +26,7 @@ export default function Register() {
 
     try {
       await createUser(email, password);
+      await updateUserProfile(name, photo);
       navigate("/", { replace: true });
     } catch (err) {
       setError(err.message);
@@ -36,7 +39,7 @@ export default function Register() {
     setError("");
     setLoading(true);
     try {
-      await googleSignIn();
+      await googleSignIn(); // Google already provides name + photo
       navigate("/", { replace: true });
     } catch (err) {
       setError(err.message);
@@ -54,12 +57,29 @@ export default function Register() {
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-3">
         <input
+          name="displayName"
+          type="text"
+          placeholder="Full Name"
+          className="input input-bordered w-full"
+          required
+        />
+
+        <input
+          name="photo"
+          type="url"
+          placeholder="Photo URL"
+          className="input input-bordered w-full"
+          required
+        />
+
+        <input
           name="email"
           type="email"
           placeholder="Email"
           className="input input-bordered w-full"
           required
         />
+
         <input
           name="password"
           type="password"

@@ -7,6 +7,7 @@ import {
     signInWithPopup,
     signOut,
     onAuthStateChanged,
+    updateProfile,
 } from "firebase/auth";
 
 export const AuthContext = createContext(null);
@@ -31,6 +32,12 @@ export default function AuthProvider({ children }) {
         setLoading(true);
         return signInWithPopup(auth, googleProvider);
     };
+    const updateUserProfile = (name, photoURL) => {
+        return updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: photoURL,
+        });
+    };
 
     const logOut = () => {
         setLoading(true);
@@ -45,7 +52,7 @@ export default function AuthProvider({ children }) {
         return () => unsubscribe();
     }, []);
 
-    const authInfo = { user, loading, createUser, signIn, googleSignIn, logOut };
+    const authInfo = { user, loading, createUser, signIn, googleSignIn, logOut, updateUserProfile, };
 
     return (
         <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

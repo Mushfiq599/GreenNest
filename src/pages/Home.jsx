@@ -2,6 +2,10 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { categories } from "../data/categories";
 import { plants } from "../data/plants";
+import { BiSolidCategory } from "react-icons/bi";
+import { PiPottedPlant } from "react-icons/pi";
+import { FaSearch } from "react-icons/fa";
+import { BsDatabaseLock } from "react-icons/bs";
 
 export default function Home() {
     const [query, setQuery] = useState("");
@@ -18,7 +22,7 @@ export default function Home() {
     return (
         <div className="w-full">
             {/* HERO */}
-            <section className="bg-gradient-to-b from-green-50 to-white border-b">
+            <section className="bg-green-50 border-b">
                 <div className="max-w-6xl mx-auto px-4 py-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                         <div>
@@ -37,7 +41,7 @@ export default function Home() {
                             {/* Search */}
                             <div className="mt-6">
                                 <label className="input input-bordered flex items-center gap-2 w-full max-w-md">
-                                    <span className="text-gray-400">🔎</span>
+                                    <span className="text-gray-400"><FaSearch /></span>
                                     <input
                                         type="text"
                                         className="grow"
@@ -48,7 +52,7 @@ export default function Home() {
                                 </label>
 
                                 {query && (
-                                    <p className="text-sm text-gray-500 mt-2">
+                                    <p className="text-sm text-gray-700 mt-2">
                                         Showing results for: <span className="font-medium">{query}</span>
                                     </p>
                                 )}
@@ -70,20 +74,21 @@ export default function Home() {
                             {/* Quick stats */}
                             <div className="mt-8 flex flex-wrap gap-3">
                                 <div className="badge badge-outline py-3 px-4">
-                                    🌿 {categories.length} Categories
+                                    <BiSolidCategory /> {categories.length} Categories
                                 </div>
                                 <div className="badge badge-outline py-3 px-4">
-                                    🪴 {plants.length} Plants
+                                    <PiPottedPlant /> {plants.length} Plants
                                 </div>
                                 <div className="badge badge-outline py-3 px-4">
-                                    🔒 Private Details Page
+                                    <BsDatabaseLock /> Private Details Page
                                 </div>
                             </div>
                         </div>
 
                         {/* Right side “promo card” */}
-                        <div className="bg-white rounded-2xl shadow p-6 border">
-                            <h2 className="text-xl font-bold text-gray-900">
+                        <div className="bg-white rounded-2xl shadow p-4 ">
+                            <img className="rounded-2xl" src="/public/indoor-plants-studio.jpg" alt="" />
+                            <h2 className="text-xl font-bold text-gray-700 mt-2">
                                 Today’s Care Tip
                             </h2>
                             <p className="mt-2 text-gray-600">
@@ -91,18 +96,7 @@ export default function Home() {
                                 moisture before watering!
                             </p>
 
-                            <div className="mt-5 grid grid-cols-2 gap-3">
-                                <div className="p-4 rounded-xl bg-green-50 border border-green-100">
-                                    <div className="text-sm text-gray-600">Light</div>
-                                    <div className="text-lg font-bold text-gray-900">
-                                        Bright Indirect
-                                    </div>
-                                </div>
-                                <div className="p-4 rounded-xl bg-green-50 border border-green-100">
-                                    <div className="text-sm text-gray-600">Water</div>
-                                    <div className="text-lg font-bold text-gray-900">Weekly</div>
-                                </div>
-                            </div>
+
 
                             <div className="mt-6">
                                 <Link
@@ -162,7 +156,7 @@ export default function Home() {
             </section>
 
             {/* TOP PLANTS */}
-            <section className="bg-white border-t">
+            <section className="bg-green-50">
                 <div className="max-w-6xl mx-auto px-4 py-12">
                     <div className="flex items-end justify-between gap-4">
                         <div>
@@ -227,6 +221,32 @@ export default function Home() {
                     )}
                 </div>
             </section>
+            <section >
+                <div className="relative w-full h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden ">
+                    {/* Background image */}
+                    <img
+                        src="/public/hero.jpg"
+                        alt="Indoor plants"
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    {/* Dark overlay for readability */}
+                    <div className="absolute inset-0 bg-black/40" />
+                    {/* Text content */}
+                    <div className="relative z-10 max-w-6xl mx-auto px-4 h-full flex items-center">
+                        <div className="max-w-2xl">
+                            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+                                Small Baby Rubber Plant
+                            </h1>
+                            <p className="mt-3 text-white/90 text-sm sm:text-base">
+                                Bring nature indoors — explore categories, learn care tips, and find your
+                                perfect plant for every corner.
+                            </p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
     );
 }
