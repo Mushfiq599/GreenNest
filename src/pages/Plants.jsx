@@ -5,10 +5,7 @@ import { FaStar } from "react-icons/fa";
 
 export default function Plants() {
     const { id } = useParams();
-
     const category = categories.find((c) => c.id === id);
-
-    // category.name might be "Low Light" and plants.category is also "Low Light"
     const list = category
         ? plants.filter((p) => p.category === category.name)
         : [];

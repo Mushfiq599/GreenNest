@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
-import useAuth from "../hooks/useAuth"; // adjust if your hook path is different
+import useAuth from "../hooks/useAuth"; 
 
 export default function Profile() {
   const { user } = useAuth();
@@ -45,7 +45,6 @@ export default function Profile() {
       <p className="mt-2 text-gray-600">Manage your account information.</p>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Left card: user info */}
         <div className="card bg-base-100 shadow">
           <div className="card-body items-center text-center">
             <div className="avatar">
@@ -71,8 +70,6 @@ export default function Profile() {
             </div>
           </div>
         </div>
-
-        {/* Right card: update form */}
         <div className="card bg-base-100 shadow md:col-span-2">
           <div className="card-body">
             <h3 className="text-xl font-bold">Update Profile</h3>

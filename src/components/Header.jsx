@@ -28,7 +28,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2" onClick={closeMenu}>
           <div className="w-9 h-9 rounded-full text-white flex items-center justify-center font-bold">
-            <img src="/public/logo.png" alt="" />
+            <img src="/logo.png" alt="" />
           </div>
           <span className="font-bold text-2xl tracking-wide text-green-700">
             GreenNest
@@ -127,8 +127,6 @@ export default function Header() {
                 Logout
               </button>
             )}
-
-            {/* Mobile Profile */}
             {user && (
               <div className="mt-3 flex items-center gap-2 pt-3 border-t">
                 <div className="w-10 h-10 rounded-full overflow-hidden border">

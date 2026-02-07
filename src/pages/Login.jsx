@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
-
-// Firebase reset password
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../firebase/firebase.config"; // <-- adjust path if yours differs
+import { auth } from "../firebase/firebase.config"; 
 
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -13,10 +11,8 @@ export default function Login() {
   const { signIn, googleSignIn } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  // for forgot password
   const [emailValue, setEmailValue] = useState("");
 
-  // password toggle
   const [showPassword, setShowPassword] = useState(false);
 
   const location = useLocation();
@@ -67,8 +63,6 @@ export default function Login() {
     try {
       await sendPasswordResetEmail(auth, email);
       toast.success("Password reset email sent! Check your inbox.");
-
-      // "Gmail redirect" (opens Gmail inbox in a new tab)
       window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
     } catch (err) {
       const msg = err?.message || "Failed to send reset email";
@@ -93,8 +87,6 @@ export default function Login() {
           value={emailValue}
           onChange={(e) => setEmailValue(e.target.value)}
         />
-
-        {/* Password + toggle */}
         <div className="relative">
           <input
             name="password"
@@ -112,8 +104,6 @@ export default function Login() {
             {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
           </button>
         </div>
-
-        {/* Forgot password */}
         <div className="flex justify-end">
           <button
             type="button"

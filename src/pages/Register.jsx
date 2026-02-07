@@ -27,8 +27,6 @@ export default function Register() {
     e.preventDefault();
     setError("");
     setLoading(true);
-
-    // ✅ fixed input names
     const name = e.target.displayName.value.trim();
     const photoURL = e.target.photoURL.value.trim();
     const email = e.target.email.value.trim();

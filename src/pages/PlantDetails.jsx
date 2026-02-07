@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 
 export default function PlantDetails() {
-  const { id } = useParams(); // this is plantId in URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = useState({ name: "", email: "" });
@@ -20,17 +20,12 @@ export default function PlantDetails() {
       toast.error("Please fill in name and email.");
       return;
     }
-
     toast.success("Consultation booked successfully!");
     setForm({ name: "", email: "" });
   };
-
-
-  // ✅ find by plantId (number or string)
   const currentIndex = plants.findIndex(
     (p) => String(p.plantId) === String(id)
   );
-
   if (currentIndex === -1) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-10 text-center">
@@ -67,7 +62,6 @@ export default function PlantDetails() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      {/* Top controls */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <Link
           to={backTo}
@@ -100,8 +94,6 @@ export default function PlantDetails() {
           </button>
         </div>
       </div>
-
-      {/* Details */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
         <img
           src={plant.image}
@@ -132,8 +124,6 @@ export default function PlantDetails() {
             <div className="text-3xl font-extrabold text-green-700">
               ${plant.price}
             </div>
-
-            {/* Book Consultation */}
             <div className="mt-6 p-5 rounded-2xl bg-base-100 shadow">
               <h2 className="text-xl font-bold">Book Consultation</h2>
               <p className="text-sm text-gray-600 mt-1">
@@ -153,7 +143,6 @@ export default function PlantDetails() {
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                   />
                 </div>
-
                 <div>
                   <label className="label">
                     <span className="label-text font-medium">Email</span>
@@ -166,13 +155,11 @@ export default function PlantDetails() {
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                   />
                 </div>
-
                 <button type="submit" className="btn bg-green-600 hover:bg-green-700 text-white border-none w-full">
                   Book Now
                 </button>
               </form>
             </div>
-
           </div>
         </div>
       </div>

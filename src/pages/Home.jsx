@@ -4,10 +4,9 @@ import { categories } from "../data/categories";
 import { plants } from "../data/plants";
 import { BiSolidCategory } from "react-icons/bi";
 import { PiPottedPlant, PiSunLight } from "react-icons/pi";
-import { FaRegStar, FaSearch, FaStar, FaSun } from "react-icons/fa";
+import { FaStar} from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { BsDatabaseLock } from "react-icons/bs";
-import { IoIosWater } from "react-icons/io";
 import { useEffect } from "react";
 
 
@@ -36,7 +35,6 @@ export default function Home() {
 
     return (
         <div className="w-full">
-            {/* HERO */}
             <section className="bg-green-50 ">
                 <div className="max-w-6xl mx-auto px-4 py-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -52,7 +50,6 @@ export default function Home() {
                                 Explore plant categories, discover the perfect indoor plant, and
                                 learn easy care tips. Sign in to view full plant details.
                             </p>
-                            {/* CTA buttons */}
                             <div className="mt-6 flex flex-col sm:flex-row gap-3">
                                 <Link
                                     to="/categories"
@@ -67,8 +64,6 @@ export default function Home() {
                                 )}
 
                             </div>
-
-                            {/* Quick stats */}
                             <div className="mt-8 flex flex-wrap gap-3">
                                 <div className="badge badge-outline py-3 px-4 font-bold">
                                     <BiSolidCategory /> {categories.length} Categories
@@ -81,10 +76,8 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Right side “promo card” */}
                         <div className="bg-white rounded-2xl shadow p-4 ">
-                            <img className="rounded-2xl" src="/public/indoor-plants-studio.jpg" alt="" />
+                            <img className="rounded-2xl" src="/indoor-plants-studio.jpg" alt="" />
                             <h2 className="text-xl font-bold text-gray-700 mt-2">
                                 Today’s Care Tip
                             </h2>
@@ -107,8 +100,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
-            {/* FEATURED CATEGORIES */}
             <section className="bg-green-50">
                 <section className="max-w-6xl mx-auto px-4 py-12">
                     <div className="flex items-end justify-between gap-4">
@@ -153,8 +144,6 @@ export default function Home() {
                     </div>
                 </section>
             </section>
-
-            {/* TOP PLANTS */}
             <section className="bg-green-50">
                 <div className="max-w-6xl mx-auto px-4 py-12">
                     <div className="flex items-end justify-between gap-4">
@@ -198,7 +187,7 @@ export default function Home() {
                                         <div className="flex flex-wrap gap-2 text-sm text-gray-600">
                                             <span className="badge badge-outline"><FaStar className="text-yellow-500" /> {p.rating}</span>
                                             <span className="badge badge-outline">
-                                                Availabale: {p.availableStock}</span>
+                                                Available: {p.availableStock}</span>
                                             <span className="badge badge-outline">
                                                 Care: {p.careLevel}
                                             </span>
@@ -248,7 +237,6 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </figure>
-
                                 <div className="card-body text-center">
                                     <h3 className="font-bold text-gray-900 text-lg">{expert.name}</h3>
                                     <p className="text-sm text-gray-600">{expert.specialization}</p>
@@ -265,15 +253,12 @@ export default function Home() {
 
             <section >
                 <div className="relative w-full h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden ">
-                    {/* Background image */}
                     <img
-                        src="/public/hero.jpg"
+                        src="/hero.jpg"
                         alt="Indoor plants"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
-                    {/* Dark overlay for readability */}
                     <div className="absolute inset-0 bg-black/40" />
-                    {/* Text content */}
                     <div className="relative z-10 max-w-6xl mx-auto px-4 h-full flex items-center">
                         <div className="max-w-2xl">
                             <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
@@ -283,7 +268,6 @@ export default function Home() {
                                 Bring nature indoors — explore categories, learn care tips, and find your
                                 perfect plant for every corner.
                             </p>
-
                         </div>
                     </div>
                 </div>
