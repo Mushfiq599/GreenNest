@@ -62,8 +62,8 @@ export default function Plants() {
                                 <h2 className="card-title">{p.plantName}</h2>
 
                                 <div className="flex flex-wrap gap-3 text-sm text-gray-600 items-center">
-                                    <span className="inline-flex items-center gap-1">
-                                        <FaStar className="text-yellow-500" />
+                                    <span className="badge badge-outline inline-flex items-center gap-1">
+                                        <FaStar className=" text-yellow-500" />
                                         {p.rating}
                                     </span>
                                     <span className="badge badge-outline">

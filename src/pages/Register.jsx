@@ -1,35 +1,56 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+
 
 export default function Register() {
   const { createUser, googleSignIn, updateUserProfile } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const navigate = useNavigate();
+
+  const validatePassword = (password) => {
+    if (password.length < 6) return "Password must be at least 6 characters.";
+    if (!/[A-Z]/.test(password))
+      return "Password must contain at least one uppercase letter.";
+    if (!/[a-z]/.test(password))
+      return "Password must contain at least one lowercase letter.";
+    return "";
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    const name = e.target.name.value.trim();
-    const photo = e.target.photo.value.trim();
+    // ✅ fixed input names
+    const name = e.target.displayName.value.trim();
+    const photoURL = e.target.photoURL.value.trim();
     const email = e.target.email.value.trim();
     const password = e.target.password.value;
 
-    if (password.length < 6) {
+    const passError = validatePassword(password);
+    if (passError) {
       setLoading(false);
-      return setError("Password must be at least 6 characters.");
+      setError(passError);
+      toast.error(passError);
+      return;
     }
 
     try {
       await createUser(email, password);
-      await updateUserProfile(name, photo);
+      await updateUserProfile(name, photoURL);
+      toast.success("Account created successfully!");
       navigate("/", { replace: true });
     } catch (err) {
-      setError(err.message);
+      const msg = err?.message || "Registration failed";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -40,9 +61,12 @@ export default function Register() {
     setLoading(true);
     try {
       await googleSignIn();
+      toast.success("Signed in with Google!");
       navigate("/", { replace: true });
     } catch (err) {
-      setError(err.message);
+      const msg = err?.message || "Google signup failed";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -65,7 +89,7 @@ export default function Register() {
         />
 
         <input
-          name="photo"
+          name="photoURL"
           type="url"
           placeholder="Photo URL"
           className="input input-bordered w-full"
@@ -80,13 +104,24 @@ export default function Register() {
           required
         />
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="input input-bordered w-full"
-          required
-        />
+        <div className="relative">
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            className="input input-bordered w-full pr-12"
+            required
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            onClick={() => setShowPassword((v) => !v)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+          </button>
+        </div>
+
 
         {error && (
           <div className="alert alert-error">

@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Categories from "../pages/Categories";
 import Plants from "../pages/Plants";
 import PlantDetails from "../pages/PlantDetails";
+import Profile from "../pages/Profile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
@@ -20,6 +21,15 @@ export const router = createBrowserRouter([
 
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
+
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
 
       {
         path: "categories",

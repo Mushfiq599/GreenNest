@@ -44,7 +44,7 @@ export default function Header() {
           <NavLink to="/plant/1" className={navClass}>
             Plant Details
           </NavLink>
-
+          {user && <NavLink to="/profile" className={navClass}>Profile</NavLink>}
           {!user ? (
             <>
               <NavLink to="/login" className={navClass}>

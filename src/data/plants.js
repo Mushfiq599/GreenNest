@@ -30,7 +30,7 @@ export const plants = [
   {
     plantId: 3,
     plantName: "Peace Lily",
-    category: "Air Purifier",
+    category: "Air Purifying",
     price: 20,
     rating: 4.6,
     availableStock: 7,
@@ -44,7 +44,7 @@ export const plants = [
   {
     plantId: 4,
     plantName: "Areca Palm",
-    category: "Air Purifier",
+    category: "Air Purifying",
     price: 35,
     rating: 4.5,
     availableStock: 6,
@@ -85,7 +85,7 @@ export const plants = [
   {
     plantId: 7,
     plantName: "Aloe Vera",
-    category: "Succulents",
+    category: "Succulents & Cacti",
     price: 14,
     rating: 4.7,
     availableStock: 14,
@@ -99,7 +99,7 @@ export const plants = [
   {
     plantId: 8,
     plantName: "Golden Barrel Cactus",
-    category: "Succulents",
+    category: "Succulents & Cacti",
     price: 19,
     rating: 4.5,
     availableStock: 5,
@@ -113,7 +113,7 @@ export const plants = [
   {
     plantId: 9,
     plantName: "Pothos",
-    category: "Hanging",
+    category: "Hanging Plants",
     price: 15,
     rating: 4.8,
     availableStock: 20,
@@ -127,7 +127,7 @@ export const plants = [
   {
     plantId: 10,
     plantName: "Spider Plant",
-    category: "Hanging",
+    category: "Hanging Plants",
     price: 13,
     rating: 4.6,
     availableStock: 16,
@@ -141,7 +141,7 @@ export const plants = [
   {
     plantId: 11,
     plantName: "Fiddle Leaf Fig",
-    category: "Large",
+    category: "Large Floor Plants",
     price: 45,
     rating: 4.3,
     availableStock: 4,
@@ -155,7 +155,7 @@ export const plants = [
   {
     plantId: 12,
     plantName: "Rubber Plant",
-    category: "Large",
+    category: "Large Floor Plants",
     price: 38,
     rating: 4.6,
     availableStock: 6,

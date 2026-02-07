@@ -3,11 +3,28 @@ import { plants } from "../data/plants";
 import { FaStar } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
 
 export default function PlantDetails() {
   const { id } = useParams(); // this is plantId in URL
   const navigate = useNavigate();
   const location = useLocation();
+  const [form, setForm] = useState({ name: "", email: "" });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!form.name.trim() || !form.email.trim()) {
+      toast.error("Please fill in name and email.");
+      return;
+    }
+
+    toast.success("Consultation booked successfully!");
+    setForm({ name: "", email: "" });
+  };
+
 
   // ✅ find by plantId (number or string)
   const currentIndex = plants.findIndex(
@@ -116,9 +133,46 @@ export default function PlantDetails() {
               ${plant.price}
             </div>
 
-            <button className="btn w-full mt-4 bg-green-600 hover:bg-green-700 text-white border-none">
-              Buy / Add to Cart
-            </button>
+            {/* Book Consultation */}
+            <div className="mt-6 p-5 rounded-2xl bg-base-100 shadow">
+              <h2 className="text-xl font-bold">Book Consultation</h2>
+              <p className="text-sm text-gray-600 mt-1">
+                Get personalized plant care guidance from our experts.
+              </p>
+
+              <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+                <div>
+                  <label className="label">
+                    <span className="label-text font-medium">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    placeholder="Your name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <label className="label">
+                    <span className="label-text font-medium">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    className="input input-bordered w-full"
+                    placeholder="you@email.com"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  />
+                </div>
+
+                <button type="submit" className="btn bg-green-600 hover:bg-green-700 text-white border-none w-full">
+                  Book Now
+                </button>
+              </form>
+            </div>
+
           </div>
         </div>
       </div>

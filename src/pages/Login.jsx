@@ -1,11 +1,23 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
+
+// Firebase reset password
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../firebase/firebase.config"; // <-- adjust path if yours differs
+
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function Login() {
   const { signIn, googleSignIn } = useAuth();
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // for forgot password
+  const [emailValue, setEmailValue] = useState("");
+
+  // password toggle
+  const [showPassword, setShowPassword] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -13,32 +25,54 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
-    const email = e.target.email.value;
+    const email = e.target.email.value.trim();
     const password = e.target.password.value;
 
     try {
       await signIn(email, password);
+      toast.success("Login successful!");
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.message);
+      const msg = err?.message || "Login failed";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
   };
 
   const handleGoogle = async () => {
-    setError("");
     setLoading(true);
     try {
       await googleSignIn();
+      toast.success("Login successful!");
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.message);
+      const msg = err?.message || "Google login failed";
+      toast.error(msg);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    const email = emailValue.trim();
+
+    if (!email) {
+      toast.error("Please type your email first.");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Password reset email sent! Check your inbox.");
+
+      // "Gmail redirect" (opens Gmail inbox in a new tab)
+      window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+    } catch (err) {
+      const msg = err?.message || "Failed to send reset email";
+      toast.error(msg);
     }
   };
 
@@ -56,20 +90,40 @@ export default function Login() {
           placeholder="Email"
           className="input input-bordered w-full"
           required
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="input input-bordered w-full"
-          required
+          value={emailValue}
+          onChange={(e) => setEmailValue(e.target.value)}
         />
 
-        {error && (
-          <div className="alert alert-error">
-            <span className="text-sm">{error}</span>
-          </div>
-        )}
+        {/* Password + toggle */}
+        <div className="relative">
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            className="input input-bordered w-full pr-12"
+            required
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            onClick={() => setShowPassword((v) => !v)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+          </button>
+        </div>
+
+        {/* Forgot password */}
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={handleForgotPassword}
+            className="text-sm text-green-700 hover:underline"
+            disabled={loading}
+          >
+            Forgot Password?
+          </button>
+        </div>
 
         <button
           className="btn bg-green-600 hover:bg-green-700 text-white border-none w-full"

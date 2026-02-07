@@ -181,24 +181,24 @@ export default function Home() {
                         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {topPlants.map((p) => (
                                 <Link
-                                    key={p.id}
-                                    to={`/plant/${p.id}`}
+                                    key={p.plantId}
+                                    to={`/plant/${p.plantId}`}
                                     className="card bg-base-100 shadow hover:shadow-md transition"
                                 >
                                     <figure className="h-44">
                                         <img
                                             src={p.image}
-                                            alt={p.name}
+                                            alt={p.plantName}
                                             className="w-full h-full object-cover"
                                         />
                                     </figure>
                                     <div className="card-body">
-                                        <h3 className="card-title">{p.name}</h3>
+                                        <h3 className="card-title">{p.plantName}</h3>
 
                                         <div className="flex flex-wrap gap-2 text-sm text-gray-600">
                                             <span className="badge badge-outline"><FaStar className="text-yellow-500" /> {p.rating}</span>
-                                            <span className="badge badge-outline"><IoIosWater className="text-blue-600" /> {p.water}</span>
-                                            <span className="badge badge-outline"><FaSun className="text-yellow-500" /> {p.light}</span>
+                                            <span className="badge badge-outline">
+                                                Availabale: {p.availableStock}</span>
                                             <span className="badge badge-outline">
                                                 Care: {p.careLevel}
                                             </span>
